@@ -34,23 +34,3 @@ class FileStorage():
                     FileStorage.__objects[key] = eval(value["__class__"])(**value)
         except FileNotFoundError:
             return
-
-
-
-   # def reload(self):
-    #     """Deserialize JSON file to objects"""
-    #     try:
-    #         with open(FileStorage.__file_path, 'r') as f:
-    #             deserialized_objects = json.load(f)
-    #             for key, value in deserialized_objects.items():
-    #                 class_name = value['__class__']
-    #                 if class_name in FileStorage.CLASS_MAP:
-    #                     obj_class = FileStorage.CLASS_MAP[class_name]
-    #                     obj_instance = obj_class(**value)
-    #                     FileStorage.__objects[key] = obj_instance
-    #                 else:
-    #                     # Handle the case where the class name is not recognized
-    #                     print(f"Warning: Unknown class name '{class_name}'")
-
-    #     except FileNotFoundError:
-    #         return
