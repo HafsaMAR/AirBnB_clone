@@ -10,12 +10,12 @@ class FileStorage():
 
     def all(self):
         """Function that returns dictionary __objects"""
-        return FileStorage.__objects
+        return self.__objects
     
     def new(self, obj):
         """Set in the dictionnary __objects the obj(value) with key <obj class>.id"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj
+        self.__objects[key] = obj
     
     def save(self):
         """"serialize the dictionnary __objetcs to Json file"""
