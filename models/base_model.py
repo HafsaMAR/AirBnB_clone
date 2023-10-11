@@ -6,8 +6,6 @@ from datetime import datetime
 """"BaseModel class module that define all commun attributes of other classes"""
 
 
-
-
 class BaseModel():
     """" Parent class""" 
 
@@ -39,10 +37,12 @@ class BaseModel():
 
     def to_dict(self):
         dictionary = self.__dict__.copy()
-        dictionary['id'] = self.id
+
+        dictionary['id'] = self.id   
         dictionary['__class__'] = self.__class__.__name__
-        dictionary['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        dictionary['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        dictionary['created_at'] = self.created_at.isoformat()
+        dictionary['updated_at'] = self.updated_at.isoformat()
         return dictionary
+
 
 
