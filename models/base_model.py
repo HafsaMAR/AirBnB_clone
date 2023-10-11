@@ -2,6 +2,7 @@
 
 from uuid import uuid4
 from datetime import datetime
+import models
 
 """"BaseModel class module that define all commun attributes of other classes"""
 
@@ -22,12 +23,14 @@ class BaseModel():
             self.id = str(uuid4())  
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
 
 
     
     def save(self):
         self.updated_at = datetime.now()
+        models.storage.save()
 
 
     def __str__(self):
@@ -46,3 +49,5 @@ class BaseModel():
 
 
 
+
+ 
