@@ -62,9 +62,11 @@ class HBNBCommand(cmd.Cmd):
                     # Parse the arguments for update
                     update_args = args.split(', ')
                     if len(update_args) == 3:
-                        casted_arg = update_args[0][1,-1]
-                        print(casted_arg)
-                        # self.do_update(f"{class_name} {casted_arg_prime} {update_args[1]} {update_args[2]}")
+                        new_arg = update_args[0]
+                        casted_arg1=new_arg[1:-1]
+                        attri = update_args[1]
+                        attri1 = attri[1:-1]
+                        self.do_update(f"{class_name} {casted_arg1} {attri1} {update_args[2]}")
                     else:
                         print("** Invalid update format. Use <class name>.update(<id>, <attribute name>, <attribute value>) **")
                 else:
