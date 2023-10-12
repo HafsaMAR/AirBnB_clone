@@ -5,6 +5,13 @@ from models.base_model import BaseModel
 import cmd 
 from models.engine.file_storage import FileStorage
 from models import storage
+from models.user import User
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     
 
     
-    def  do_emptyline(self, line):
+    def do_emptyline(self, line):
         """"an empty line + ENTER shouldn’t execute anything """
         pass
 
@@ -31,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
         if line is None:
             print('** class name missing **')
   
-        if line  in ["user", "city", "amenity", "place", "BaseModel"]:
+        if line  in ["User", "City", "Amenity", "Place", "BaseModel", "State", "Review"]:
             instance_of_basemodel = eval(line)()
             instance_of_basemodel.save()
             print(instance_of_basemodel.id)
@@ -141,18 +148,16 @@ class HBNBCommand(cmd.Cmd):
                 if check == 0:
                     print("** no instance found **") 
                 elif len(args) < 4:
-                        print("attribute name missing")
+                        print("** value missing **")
                 elif len(args) < 3:
-                        print("attribute name missing")
+                        print("** attribute name missing **")
                 else:
                     saved_objects[id].__dict__[args[2]] = ast.literal_eval(args[3])
                     storage.save()
                 
                 
-                
-            # if obj_data.id == args[1]:
-            #     print(saved_objects[key].__dict__)
-
+    
+      
 
 
 if __name__ == '__main__':

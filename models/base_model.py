@@ -2,13 +2,13 @@
 
 from uuid import uuid4
 from datetime import datetime
-import models
+import models 
 
 """"BaseModel class module that define all commun attributes of other classes"""
 
 
 class BaseModel():
-    """" Parent class""" 
+    """Parent class""" 
 
 
     def __init__(self, *arg, **kwargs):
