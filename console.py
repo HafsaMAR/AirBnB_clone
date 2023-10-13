@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 import ast
 from models.base_model import BaseModel
 import cmd 
@@ -59,15 +60,25 @@ class HBNBCommand(cmd.Cmd):
                     casted_arg = args[1:-1]
                     self.do_destroy(f"{class_name} {casted_arg}")
                 elif method == "update":
-                    # Parse the arguments for update
-                    update_args = args.split(', ')
-                    if len(update_args) == 3:
+                    arg = ast.literal_eval(args)
+                    if len(arg) == 2:
+                        if isinstance(arg[1], dict):
+                            for key, value in arg[1].items():
+                                arg1 = arg[0]
+                            self.do_update(f"{class_name} {arg1} {key} {value}")
+                        else: 
+                            print("** Invalid update format. Use <class name>.update(<id>, <dictionary representation>). **")
+
+                    elif len(args.split(', ')) == 3:
+                        print("I'm here")
+                        update_args = args.split(', ')
                         new_arg = update_args[0]
                         casted_arg1=new_arg[1:-1]
                         attri = update_args[1]
                         attri1 = attri[1:-1]
                         self.do_update(f"{class_name} {casted_arg1} {attri1} {update_args[2]}")
                     else:
+                        print(len(args))
                         print("** Invalid update format. Use <class name>.update(<id>, <attribute name>, <attribute value>) **")
                 else:
                     print("** Unknown method: {}.{} **".format(class_name, method))
@@ -112,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             class_name = args[0]
 
-            if class_name not in  ['BaseModel', 'User', 'State', 'Amenity', 'Place', 'Review']:
+            if class_name not in  ['BaseModel', 'User', 'State', 'Amenity', 'Place','City', 'Review']:
                 print("** class doesn't exist **")
                 
             elif len(args) < 2:
@@ -166,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             class_name = args[0]
 
-            if class_name not in  ['BaseModel', 'User', 'State', 'Amenity', 'Place', 'Review']:
+            if class_name not in  ['BaseModel', 'User', 'State', 'City', 'Amenity', 'Place', 'Review']:
                 print("** class doesn't exist **")
                 
             elif len(args) < 2:
@@ -189,7 +200,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
         
-        elif args[0] not in  ['BaseModel', 'User', 'State', 'Amenity', 'Place', 'Review']:
+        elif args[0] not in  ['BaseModel', 'User', 'State', 'City', 'Amenity', 'Place', 'Review']:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
