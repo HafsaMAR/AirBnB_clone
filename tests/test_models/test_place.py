@@ -5,10 +5,10 @@ from models.place import Place
 
 class TestPlace(unittest.TestCase):
 
-    def TestInit(self):
+    def test_init(self):
         
         place = Place()
-        self.assertEqual(place.city_idd , "")
+        self.assertEqual(place.city_id , "")
         self.assertEqual(place.user_id, "")
         self.assertEqual(place.name, "")
         self.assertEqual(place.description , "")
@@ -20,5 +20,11 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.longitude , 0.0)
         self.assertEqual(place.amenity_ids , [])
 
-if __name__ == "__main__":
+    def test_two_place_unique_ids(self):
+        """this function test if two instantiated object has differents IDs"""
+        pl1 = Place()
+        pl2 = Place()
+        self.assertNotEqual(pl1.id, pl2.id)
+
+if __name__ == '__main__':
     unittest.main()
