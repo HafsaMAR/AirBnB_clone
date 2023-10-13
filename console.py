@@ -3,7 +3,7 @@
 
 import ast
 from models.base_model import BaseModel
-import cmd 
+import cmd
 from models.engine.file_storage import FileStorage
 from models import storage
 from models.user import User
@@ -14,30 +14,28 @@ from models.review import Review
 from models.state import State
 import re
 
+
 class HBNBCommand(cmd.Cmd):
 
-    
-    prompt ="(hbnb) "
-    
+    prompt = "(hbnb) "
 
     def do_count(self, line):
         """Methode that retrives the number of instances of a class"""
         saved_objects = storage.all()
         count = 0
         args = line.split()
-        
+
         if not args:
             print("** class name missing **")
         else:
-            if args[0] not in  ['BaseModel', 'User', 'State', 'Amenity', 'Place', 'Review']:
+            if args[0] not in ['BaseModel', 'User', 'State',
+                               'Amenity', 'Place', 'Review']:
                 print("** class doesn't exist **")
             for key in saved_objects.keys():
                 k = key.split(".")
                 if k[0] == args[0]:
                     count += 1
         print(count)
-
-
 
     def default(self, line):
         """Handle <class.method> format commands."""
@@ -48,10 +46,11 @@ class HBNBCommand(cmd.Cmd):
             class_name = class_name.strip()
             method = method.strip()
             args = args.strip()
-            if class_name in ["User", "City", "Amenity", "Place", "BaseModel", "State", "Review"]:
-                if method == "all" and not args:  # Handle <class name>.all()
+            if class_name in ["User", "City", "Amenity", "Place",
+                              "BaseModel", "State", "Review"]:
+                if method == "all" and not args:
                     self.do_all(class_name)
-                elif method == "count" and not args:  # Handle <class name>.count()
+                elif method == "count" and not args:
                     self.do_count(class_name)
                 elif method == "show":
                     casted_arg = args[1:-1]
@@ -65,23 +64,31 @@ class HBNBCommand(cmd.Cmd):
                         if isinstance(arg[1], dict):
                             for key, value in arg[1].items():
                                 arg1 = arg[0]
-                            self.do_update(f"{class_name} {arg1} {key} {value}")
-                        else: 
-                            print("** Invalid update format. Use <class name>.update(<id>, <dictionary representation>). **")
+                            self.do_update(
+                                f"{class_name} {arg1} {key} {value}")
+                        else:
+                            print(
+                                "** Invalid update format. Use \
+                <class name>.update(<id>, <dictionary representation>). **")
 
                     elif len(args.split(', ')) == 3:
                         print("I'm here")
                         update_args = args.split(', ')
                         new_arg = update_args[0]
-                        casted_arg1=new_arg[1:-1]
+                        casted_arg1 = new_arg[1:-1]
                         attri = update_args[1]
                         attri1 = attri[1:-1]
-                        self.do_update(f"{class_name} {casted_arg1} {attri1} {update_args[2]}")
+                        self.do_update(
+                            f"{class_name} {casted_arg1}\
+                            {attri1} {update_args[2]}")
                     else:
                         print(len(args))
-                        print("** Invalid update format. Use <class name>.update(<id>, <attribute name>, <attribute value>) **")
+                        print(
+                            "** Invalid update format. Use \
+            <class name>.update(<id>, <attribute name>, <attribute value>) **")
                 else:
-                    print("** Unknown method: {}.{} **".format(class_name, method))
+                    print("** Unknown method: {}.{} \
+                          **".format(class_name, method))
             else:
                 print("** class doesn't exist **")
         else:
@@ -95,7 +102,6 @@ class HBNBCommand(cmd.Cmd):
         """ This Method exit in the END OF FILE """
         return True
 
-
     def do_quit(self, line):
         """quit method"""
         return True
@@ -103,50 +109,52 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         if line is None:
             print('** class name missing **')
-  
-        if line  in ["User", "City", "Amenity", "Place", "BaseModel", "State", "Review"]:
+
+        if line in ["User", "City", "Amenity",
+                    "Place", "BaseModel", "State", "Review"]:
             instance_of_basemodel = eval(line)()
             instance_of_basemodel.save()
             print(instance_of_basemodel.id)
         else:
             print("** class doesn't exist **")
 
-        
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation of an \
+            instance based on the class name and id"""
         saved_objects = storage.all()
         args = line.split()
-        
+
         if not args:
             print("** class name missing **")
-        
+
         else:
             class_name = args[0]
 
-            if class_name not in  ['BaseModel', 'User', 'State', 'Amenity', 'Place','City', 'Review']:
+            if class_name not in ['BaseModel', 'User', 'State',
+                                  'Amenity', 'Place',
+                                  'City', 'Review']:
                 print("** class doesn't exist **")
-                
+
             elif len(args) < 2:
                 print("** instance id missing **")
-            
+
             else:
-                obj_id = args[1]   
+                obj_id = args[1]
                 key = "{}.{}".format(class_name, obj_id)
                 if key in saved_objects:
-                    obj= saved_objects[key]
+                    obj = saved_objects[key]
                     print(obj)
                 else:
                     print("** no instance found **")
 
-
     def do_all(self, line):
-        """"Methode that Prints all string representation of 
+        """"Methode that Prints all string representation of
             all instances based or not on the class name."""
         list_of_instance = []
         output = []
 
         saved_objects = storage.all()
-        check = 0 #check the number of items found
+        check = 0  # check the number of items found
         if not line:
             for key in saved_objects.keys():
                 list_of_instance.append(saved_objects[key])
@@ -167,64 +175,64 @@ class HBNBCommand(cmd.Cmd):
                 print(output)
 
     def do_destroy(self, line):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation
+            of an instance based on the
+            class name and id"""
         saved_objects = storage.all()
         args = line.split()
-        
+
         if not args:
             print("** class name missing **")
-        
+
         else:
             class_name = args[0]
 
-            if class_name not in  ['BaseModel', 'User', 'State', 'City', 'Amenity', 'Place', 'Review']:
+            if class_name not in ['BaseModel', 'User',
+                                  'State', 'City', 'Amenity',
+                                  'Place', 'Review']:
                 print("** class doesn't exist **")
-                
+
             elif len(args) < 2:
                 print("** instance id missing **")
-                       
 
             else:
-                obj_id = args[1]   
+                obj_id = args[1]
                 key = "{}.{}".format(class_name, obj_id)
                 if key in saved_objects:
                     del saved_objects[key]
-                    storage.save()       
-                else:    
+                    storage.save()
+                else:
                     print("** no instance found **")
-   
+
     def do_update(self, line):
         saved_objects = storage.all()
         args = line.split()
-        
+
         if not args:
             print("** class name missing **")
-        
-        elif args[0] not in  ['BaseModel', 'User', 'State', 'City', 'Amenity', 'Place', 'Review']:
+        elif args[0] not in ['BaseModel', 'User',
+                             'State', 'City', 'Amenity',
+                             'Place', 'Review']:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-                check = 0
-                for key in saved_objects:
-                    obj_data = saved_objects[key].__dict__['id']
-                    if args[1] == obj_data:
-                        check +=1
-                        id = key
-                          
-                if check == 0:
-                    print("** no instance found **") 
-                elif len(args) < 4:
-                        print("** value missing **")
-                elif len(args) < 3:
-                        print("** attribute name missing **")
-                else:
-                    saved_objects[id].__dict__[args[2]] = ast.literal_eval(args[3])
-                    storage.save()
-                
-                
-    
-      
+            check = 0
+            for key in saved_objects:
+                obj_data = saved_objects[key].__dict__['id']
+                if args[1] == obj_data:
+                    check += 1
+                    id = key
+
+            if check == 0:
+                print("** no instance found **")
+            elif len(args) < 4:
+                print("** value missing **")
+            elif len(args) < 3:
+                print("** attribute name missing **")
+            else:
+                saved_objects[id].__dict__[args[2]] = ast.literal_eval(args[3])
+                storage.save()
 
 
 if __name__ == '__main__':
