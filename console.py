@@ -68,11 +68,10 @@ class HBNBCommand(cmd.Cmd):
                                 f"{class_name} {arg1} {key} {value}")
                         else:
                             print(
-                                "** Invalid update format. Use \
-                <class name>.update(<id>, <dictionary representation>). **")
+                                "** Invalid update format. Use <cl\
+ass name>.update(<id>, <dictionary representation>). **")
 
                     elif len(args.split(', ')) == 3:
-                        print("I'm here")
                         update_args = args.split(', ')
                         new_arg = update_args[0]
                         casted_arg1 = new_arg[1:-1]
@@ -83,9 +82,8 @@ class HBNBCommand(cmd.Cmd):
                             {attri1} {update_args[2]}")
                     else:
                         print(len(args))
-                        print(
-                            "** Invalid update format. Use \
-            <class name>.update(<id>, <attribute name>, <attribute value>) **")
+                        print("** Invalid update format. Use\
+<class name>.update(<id>, <attribute name>, <attribute value>) **")
                 else:
                     print("** Unknown method: {}.{} \
                           **".format(class_name, method))
