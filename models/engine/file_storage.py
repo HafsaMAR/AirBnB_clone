@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""file storege class"""
 
 import json
 from models.base_model import BaseModel
@@ -11,9 +12,7 @@ from models.state import State
 
 
 class FileStorage():
-    """Class that serializes
-      instances to a JSON file and
-        deserializes JSON file to instances"""
+    """Creat the FilesTorage class"""
     __file_path = 'file.json'
     __objects = {}
 
@@ -22,9 +21,11 @@ class FileStorage():
         return self.__objects
 
     def new(self, obj):
-        """Set in the dictionnary
-          __objects the obj(value)
-            with key <obj class>.id"""
+        ''' Add a new object to the objects dict
+
+        Args:
+            obj (BaseModel):    The object to save
+        '''
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
 

@@ -1,7 +1,7 @@
 #!/usr/bin/pyhton3
+'''Creating City Object'''
 
 from models.base_model import BaseModel
-from models.state import State
 
 
 class City(BaseModel):
