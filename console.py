@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''The Main Console for the project '''
 
 
 import ast
@@ -16,6 +17,7 @@ import re
 
 
 class HBNBCommand(cmd.Cmd):
+    ''' Make use of the cmd module to create an interactive console '''
 
     prompt = "(hbnb) "
 

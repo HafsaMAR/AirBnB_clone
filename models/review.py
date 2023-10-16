@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''Creating the Review object'''
 
 from models.base_model import BaseModel
 

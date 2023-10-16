@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''creating the Place Object'''
 
 from models.base_model import BaseModel
 

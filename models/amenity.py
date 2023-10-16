@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+'''Amenity CLass Creation'''
 from models.base_model import BaseModel
 
 

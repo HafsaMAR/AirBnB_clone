@@ -1,17 +1,23 @@
 #!/usr/bin/python3
+""""BaseModel class module that define all
+commun attributes of other classes"""
 
 from uuid import uuid4
 from datetime import datetime
 import models
-
-""""BaseModel class module that define all
-commun attributes of other classes"""
 
 
 class BaseModel():
     """Parent class"""
 
     def __init__(self, *arg, **kwargs):
+        ''' Creating BaseModel object
+
+        Args:
+            args (None):    not used
+            kwargs (dict):  key/value paires used to instantiate
+                            a BaseModel object
+        '''
         if kwargs:
             for k, w in kwargs.items():
                 if k == '__class__':
@@ -26,14 +32,17 @@ class BaseModel():
             models.storage.new(self)
 
     def save(self):
+        """Save function to save datetime"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def __str__(self):
+        """String representation"""
         return "[{}] ({}) {}".format(self.__class__.__name__,
                                      self.id, self.__dict__)
 
     def to_dict(self):
+        """Creating the Dictionary representation"""
         dictionary = self.__dict__.copy()
 
         dictionary['id'] = self.id
