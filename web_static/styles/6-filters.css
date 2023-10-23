@@ -64,21 +64,21 @@ section.filters button:hover {
 }
 
 .popover li h2 {
-    padding: 0%;
     margin: 0;
+    padding-top: 3%;
+    padding-bottom: 3%;
     left: 0;
 }
 li {
     list-style-type: none;
     padding: 2px;
-    padding-bottom: 0px;
-}
-ul{
-    padding-top: 0px;
+    padding-bottom: 0%;
 }
 
 
-
+.popover ul li ul {
+    padding-left: 10%;
+}
 
 .locations:hover >.popover{
     visibility: visible;
